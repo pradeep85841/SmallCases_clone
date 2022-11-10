@@ -1,0 +1,31 @@
+.bg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-image: url(../../../Assets/bg.jpeg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: 0%;
+    background-position-y:center;
+    
+ }
+
+.home__head__container{
+   padding-top: 20%;
+   
+}
+
+ .invest_h1{
+    font-size: 50px;
+    margin-bottom: 5px;
+    opacity: 70%;
+}
+
+.Intro__info-footer{
+    opacity: 80%;
+    margin-left: 5px;
+}
+
+.other-borkers{
+    margin: 10px;
+}
