@@ -1,10 +1,10 @@
-import LandingPage from './containers/pages/LandingPage';
-//import Header from './test';
+//import LandingPage from "./pages/LandingPage/index.js";
+import BlockCard from "./pages/DiscoverPage/index.js";
 
 function App() {
   return (
     <div className="App">
-    <LandingPage />
+      <BlockCard />
     </div>
   );
 }
