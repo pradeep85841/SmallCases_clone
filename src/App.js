@@ -1,10 +1,10 @@
-import LandingPage from "./containers/pages/LandingPage";
-//import Header from './test';
+//import LandingPage from "./containers/pages/LandingPage";
+import UserEstimation from "./components/EstimationForm/index.js";
 
 function App() {
   return (
     <div className="App">
-      <LandingPage />
+      <UserEstimation />
     </div>
   );
 }
