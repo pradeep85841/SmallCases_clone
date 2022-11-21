@@ -12,6 +12,7 @@ const News = ({ news }) => {
         {news.map((news, index) => {
           return (
             <div className="slide-card" key={index}>
+              {/*  need paper backgrpounc*/}
               <Card sx={{ minWidth: 300 }} className="card">
                 <CardContent>
                   <Typography variant="h5" component="div">
