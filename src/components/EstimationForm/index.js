@@ -1,12 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import TextField from "@mui/material/TextField";
-//import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import "./index.css";
 import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
+import Paper from "@mui/material/Paper";
+
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 class UserEstimation extends Component {
   state = {
@@ -62,112 +64,183 @@ class UserEstimation extends Component {
   render() {
     return (
       <div className="userEstimation">
-        <Fragment>
-          <Box
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-          >
-            <p>{this.state.response}</p>
+        <p>{this.state.response}</p>
+        <Paper variant="outlined" square>
+          <form onSubmit={this.handleSubmit}>
+            <div className="FormFields">
+              <TextField
+                id="outlined-textarea"
+                label="stock"
+                multiline
+                type="text"
+                value={this.state.stock}
+                required
+                onChange={(e) =>
+                  this.setState({ stock: e.target.value.toUpperCase() })
+                }
+              />
+              <TextField
+                id="outlined-textarea"
+                label="Invested Amount"
+                multiline
+                type="text"
+                value={this.state.buyPrice}
+                required
+                onChange={(e) => this.setState({ buyPrice: e.target.value })}
+              />
+              <TextField
+                id="outlined-textarea"
+                label="YYYY-MM-DD"
+                multiline
+                type="text"
+                placeholder="YYYY-MM-DD"
+                required
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                title="Enter a date in this format YYYY-MM-DD"
+                value={this.state.date}
+                onChange={(e) => this.setState({ date: e.target.value })}
+              />
+              <TextField
+                id="outlined-textarea"
+                label="Quantity"
+                multiline
+                type="text"
+                value={this.state.quantity}
+                required
+                onChange={(e) => this.setState({ quantity: e.target.value })}
+              />
+            </div>
+            <Divider textAlign="left">
+              <button type="submit">Submit</button>
+            </Divider>
+          </form>
+          {this.state.isLoading ? (
+            <div>Loading ...</div>
+          ) : (
+            <div className="ResponseDisplay">
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>CAGR: {this.state.cagr}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
 
-            <form onSubmit={this.handleSubmit}>
-              <Box
-                display="grid"
-                sx={{
-                  "& .MuiTextField-root": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <p>
-                  <strong>stockfolio prediction</strong>
-                </p>
-                <TextField
-                  id="outlined-textarea"
-                  label="stock"
-                  multiline
-                  type="text"
-                  value={this.state.stock}
-                  required
-                  onChange={(e) =>
-                    this.setState({ stock: e.target.value.toUpperCase() })
-                  }
-                />
-                <TextField
-                  id="outlined-textarea"
-                  label="Invested Amount"
-                  multiline
-                  type="text"
-                  value={this.state.buyPrice}
-                  required
-                  onChange={(e) => this.setState({ buyPrice: e.target.value })}
-                />
-                <TextField
-                  id="outlined-textarea"
-                  label="YYYY-MM-DD"
-                  multiline
-                  type="text"
-                  placeholder="YYYY-MM-DD"
-                  required
-                  pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-                  title="Enter a date in this format YYYY-MM-DD"
-                  value={this.state.date}
-                  onChange={(e) => this.setState({ date: e.target.value })}
-                />
-                <TextField
-                  id="outlined-textarea"
-                  label="Quantity"
-                  multiline
-                  type="text"
-                  value={this.state.quantity}
-                  required
-                  onChange={(e) => this.setState({ quantity: e.target.value })}
-                />
-              </Box>
-              <Divider textAlign="left">
-                <button type="submit">Submit</button>
-              </Divider>
-            </form>
-            {this.state.isLoading ? (
-              <div>Loading ...</div>
-            ) : (
-              <List component="nav" aria-label="mailbox folders">
-                <ListItem>
-                  <ListItemText primary={this.state.cagr} />
-                </ListItem>
-                <Divider />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>volatality: {this.state.volatality}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
 
-                <ListItem>
-                  <ListItemText primary={this.state.volatality} />
-                </ListItem>
-                <Divider />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>
+                    DayHigh: {this.state.analysis.DayHigh}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
 
-                <ListItem>
-                  <ListItemText primary={this.state.DayHigh} />
-                </ListItem>
-                <Divider />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>DayLow: {this.state.analysis.DayLow}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
 
-                <ListItem>
-                  <ListItemText primary={this.state.DayLow} />
-                </ListItem>
-                <Divider />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>mHigh: {this.state.analysis.mHigh}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
 
-                <ListItem>
-                  <ListItemText primary={this.state.mHigh} />
-                </ListItem>
-                <Divider />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>mlow: {this.state.mlow}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
 
-                <ListItem>
-                  <ListItemText primary={this.state.mlow} />
-                </ListItem>
-                <Divider />
-
-                <ListItem>
-                  <ListItemText primary={this.state.prediction} />
-                </ListItem>
-                <Divider />
-              </List>
-            )}
-          </Box>
-        </Fragment>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>prediction: {this.state.prediction}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          )}
+        </Paper>
       </div>
     );
   }
