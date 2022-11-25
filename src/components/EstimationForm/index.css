@@ -1,15 +1,37 @@
 .userEstimation {
-  display: grid;
-  text-align: center;
-  background-color: rgb(232, 214, 250);
+  padding-top: 15px;
+  text-align: right;
+  padding-bottom: 30px;
+  background-color: rgb(235, 224, 255);
+  padding-right: 45px;
+  display: flex;
 }
 
 .FormFields {
   display: grid;
   grid-gap: 15px;
-  width: 20%;
+}
+.Elivatedpaper {
+  padding-top: 10px;
+  width: 40%;
+  text-align: center;
+  margin-left: auto;
+  padding-bottom: 20px;
+  border-radius: 20px;
 }
 
-.ResponseDisplay {
-  width: 10%;
+.Outlinepaper {
+  padding-top: 10px;
+  width: 80%;
+  margin: auto;
+}
+
+.FormHeading {
+  margin: auto;
+  text-align: left;
+  padding-left: 3%;
+}
+
+.FormTitle {
+  align-self: initial;
 }

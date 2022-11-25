@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import ButtonAppBar from "../../components/Navbar/index.js";
 import "./index.css";
 import easyuse from "../../Assets/easyuse.gif";
@@ -16,7 +17,12 @@ import upstox from "../../Assets/upstox.png";
 import angelbroking from "../../Assets/angelbroking.png";
 
 const LandingPage = () => {
-  const handleDiscoverStockfolio = () => {};
+  const navigate = useNavigate();
+
+  const handleDiscoverStockfolio = () => {
+    navigate("/discover");
+  };
+
   return (
     <>
       <ButtonAppBar />

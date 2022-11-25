@@ -1,10 +1,16 @@
-//import LandingPage from "./containers/pages/LandingPage";
-import UserEstimation from "./components/EstimationForm/index.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import Discover from "./pages/DiscoverPage/index.js";
 
 function App() {
   return (
     <div className="App">
-      <UserEstimation />
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<LandingPage />} />
+          <Route exact path="/discover" element={<Discover />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

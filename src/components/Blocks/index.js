@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import "./index.css";
 import ItAsset from "../../Assets/SCET_0005.png";
+import divident_logo from "../../Assets/divident_logo.png";
 
 const BlockCard = () => {
   return (
@@ -77,7 +78,11 @@ const BlockCard = () => {
                 25K times in the last month
               </p>
               <div className="card-details">
-                <img className="card-img" src={ItAsset} alt="dividentimg" />
+                <img
+                  className="card-img"
+                  src={divident_logo}
+                  alt="dividentimg"
+                />
 
                 <div style={{ padding: "0 5px", margin: " 5px " }}>
                   <Button variant="contained">DIVIDENT</Button>
