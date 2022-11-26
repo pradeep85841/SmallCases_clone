@@ -8,11 +8,18 @@ import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
 
 export default function ButtonAppBar(props) {
-  const { handleLoginBtn, handleSignupBtn, handleAgentloginBtn } = props;
   const navigate = useNavigate();
 
   const handleLogo = () => {
     navigate("/");
+  };
+
+  const handleLoginBtn = () => {
+    navigate("/Signin");
+  };
+
+  const handleSignupBtn = () => {
+    navigate("/SignUp");
   };
 
   return (
@@ -42,9 +49,7 @@ export default function ButtonAppBar(props) {
               Login
             </Button>
 
-            <Button onClick={handleAgentloginBtn} color="inherit">
-              Agent
-            </Button>
+            <Button color="inherit">Agent</Button>
           </div>
         </Toolbar>
       </AppBar>
