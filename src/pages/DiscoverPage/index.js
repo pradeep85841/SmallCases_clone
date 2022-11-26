@@ -3,6 +3,7 @@ import BlockCard from "../../components/Blocks/index.js";
 import UserEstimation from "../../components/EstimationForm/index.js";
 import BasicTabs from "../../components/TabPanel/index.js";
 import "./index.css";
+import BrokerDataTable from "../../components/Charges/BrokerData.js";
 
 export default function Discover() {
   return (
@@ -21,6 +22,10 @@ export default function Discover() {
 
       <div className="EstimationForm">
         <UserEstimation />
+      </div>
+
+      <div className="BrokerTable">
+        <BrokerDataTable />
       </div>
     </div>
   );

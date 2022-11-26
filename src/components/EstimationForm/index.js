@@ -66,15 +66,16 @@ class UserEstimation extends Component {
     return (
       <div className="userEstimation">
         <div className="FormHeading">
-          <h1 className="FormTitle"> Stockfolio special</h1>
-          <h2 className="MainHeading">
-            {" "}
-            All you need to build your research business{" "}
-          </h2>
-          <p className="SideHeading">
-            Business-in-a-box solution with all functionalities for you to
-            start, run and grow your curated portfolio business.
-          </p>
+          <div className="FormTitle">
+            <h2>Stockfolio special</h2>
+          </div>
+          <div className="FormDescription">
+            <h2>All you need to build your research business</h2>
+            <p>
+              Business-in-a-box solution with all functionalities for you to
+              start, run and grow your curated portfolio business.
+            </p>
+          </div>
         </div>
 
         <p>{this.state.response}</p>
