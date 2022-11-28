@@ -12,3 +12,7 @@
   margin: 10px;
   padding-top: 10%;
 }
+
+.BlockCards {
+  display: flex;
+}
