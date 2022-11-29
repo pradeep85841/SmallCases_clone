@@ -12,7 +12,6 @@ import Orders from "../../components/Orders/Orders.js";
 import ButtonAppBar from "../../components/Navbar/index.js";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
-import DividendBlockCard from "../../components/Blocks/DividendBlock/index.js";
 
 function Copyright(props) {
   return (
@@ -54,7 +53,6 @@ function DashboardContent() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <DividendBlockCard />
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>

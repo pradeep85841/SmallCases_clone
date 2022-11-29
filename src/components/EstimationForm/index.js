@@ -11,6 +11,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 class UserEstimation extends Component {
   state = {
     response: "",
@@ -22,6 +28,7 @@ class UserEstimation extends Component {
     analysis: "",
     volatality: "",
     isLoading: false,
+    open: false,
   };
 
   componentDidMount() {
@@ -60,6 +67,14 @@ class UserEstimation extends Component {
     this.setState({ volatality: body.volatality });
     this.setState({ prediction: body.prediction });
     this.setState({ isLoading: false });
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   render() {
@@ -127,7 +142,12 @@ class UserEstimation extends Component {
               </div>
               <br></br>
               <Divider textAlign="left">
-                <Button variant="outlined" disableElevation type="submit">
+                <Button
+                  variant="outlined"
+                  onClick={this.handleClickOpen}
+                  disableElevation
+                  type="submit"
+                >
                   Estimate
                 </Button>
               </Divider>
@@ -137,128 +157,151 @@ class UserEstimation extends Component {
               <div>Loading ...</div>
             ) : (
               <div className="ResponseDisplay">
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography>CAGR: {this.state.cagr}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                <Dialog
+                  open={this.state.open}
+                  onClose={this.handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Your Investment Estimation"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <Typography>CAGR: {this.state.cagr}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
 
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>volatality: {this.state.volatality}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography>
+                            volatality: {this.state.volatality}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
 
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>
-                      DayHigh: {this.state.analysis.DayHigh}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography>
+                            DayHigh: {this.state.analysis.DayHigh}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
 
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>
-                      DayLow: {this.state.analysis.DayLow}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography>
+                            DayLow: {this.state.analysis.DayLow}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
 
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>mHigh: {this.state.analysis.mHigh}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography>
+                            mHigh: {this.state.analysis.mHigh}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
 
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>mlow: {this.state.mlow}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography>mlow: {this.state.mlow}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
 
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>prediction: {this.state.prediction}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Suspendisse malesuada lacus ex, sit amet blandit leo
-                      lobortis eget.
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography>
+                            prediction: {this.state.prediction}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={this.handleClose}>Close</Button>
+                  </DialogActions>
+                </Dialog>
               </div>
             )}
           </Paper>
