@@ -5,8 +5,19 @@ import { Grid } from "@mui/material";
 import "./index.css";
 import ItAsset from "../../../Assets/SCET_0005.png";
 import divident_logo from "../../../Assets/divident_logo.png";
+import { useNavigate } from "react-router-dom";
 
 const BlockCard = () => {
+  const navigate = useNavigate();
+
+  const ItDashboard = () => {
+    navigate("/itdashboard");
+  };
+
+  const DividendDashboard = () => {
+    navigate("/dividenddashboard");
+  };
+
   return (
     <>
       <Grid container spacing={10}>
@@ -24,7 +35,7 @@ const BlockCard = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <Paper className="block1-it" elevation={3}>
+          <Paper className="block1-it" elevation={3} onClick={ItDashboard}>
             <div className="block1-it-container">
               <p className="text-14 card-title">
                 <span className="highlited-label">Popular</span> - Viewed over
@@ -32,14 +43,8 @@ const BlockCard = () => {
               </p>
               <div className="card-details">
                 <img className="card-img" src={ItAsset} alt="itimg" />
-                {/* <div> */}
+
                 <div style={{ padding: "0 5px", margin: " 5px " }}>
-                  {/* <h2 style={{margin: "0"}} className='text-18'>
-                                IT Assets
-                            </h2> */
-                  /*<Button variant="contained" onClick={ItAsset}>
-                    IT Assets
-  </Button>*/}
                   <p className="text-14 card-description">
                     Create wealth with equities, stay protected with Gold. The
                     sweet spot
@@ -71,7 +76,11 @@ const BlockCard = () => {
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className="block1-it" elevation={3}>
+          <Paper
+            className="block1-it"
+            elevation={3}
+            onClick={DividendDashboard}
+          >
             <div className="block1-it-container">
               <p className="text-14 card-title">
                 <span className="highlited-label">Popular</span> - Viewed over

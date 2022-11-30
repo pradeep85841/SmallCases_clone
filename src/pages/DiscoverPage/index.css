@@ -4,6 +4,8 @@
 }
 
 .DiscoverBody {
+  background-color: rgb(243, 241, 241);
+  background-size: cover;
   padding-top: 10%;
   text-align: center;
 }
@@ -18,5 +20,9 @@
 }
 
 .BrokerTable {
+  padding-top: 5%;
+}
+
+.Taxes {
   padding-top: 5%;
 }

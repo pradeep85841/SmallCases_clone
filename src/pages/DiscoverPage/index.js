@@ -3,6 +3,7 @@ import UserEstimation from "../../components/EstimationForm/index.js";
 import "./index.css";
 import BrokerDataTable from "../../components/BrokersData/DisplayBrokers/index.js";
 import BlockCard from "../../components/Blocks/BlockCard/index.js";
+import TaxesData from "../../components/BrokersData/DisplayTaxes/inedx.js";
 
 import * as React from "react";
 import PropTypes from "prop-types";
@@ -10,6 +11,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import NewsDisplay from "../../components/News/NewsDisplay/index.js";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,6 +78,9 @@ export default function Discover() {
             <div className="BlockCards">
               <BlockCard />
             </div>
+            <div className="Taxes">
+              <TaxesData />
+            </div>
             <div className="EstimationForm">
               <UserEstimation />
             </div>
@@ -83,8 +88,9 @@ export default function Discover() {
               <BrokerDataTable />
             </div>{" "}
           </TabPanel>
+
           <TabPanel value={value} index={1}>
-            Item Two
+            <NewsDisplay />
           </TabPanel>
         </Box>
       </div>
