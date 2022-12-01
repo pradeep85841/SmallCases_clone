@@ -3,24 +3,13 @@ import Paper from "@mui/material/Paper";
 import { Grid } from "@mui/material";
 //import Button from "@mui/material/Button";
 import "./index.css";
-import ItAsset from "../../../Assets/SCET_0005.png";
-import divident_logo from "../../../Assets/divident_logo.png";
-import { useNavigate } from "react-router-dom";
+import ItBlock from "../ItBlock";
+import DividendBlock from "../DividendBlock";
 
 const BlockCard = () => {
-  const navigate = useNavigate();
-
-  const ItDashboard = () => {
-    navigate("/itdashboard");
-  };
-
-  const DividendDashboard = () => {
-    navigate("/dividenddashboard");
-  };
-
   return (
     <>
-      <Grid container spacing={10}>
+      <Grid container spacing={5}>
         <Grid item xs={18}>
           <Paper className="block1-promote" variant="outlined">
             <div className="block1-it-container">
@@ -35,95 +24,10 @@ const BlockCard = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <Paper className="block1-it" elevation={3} onClick={ItDashboard}>
-            <div className="block1-it-container">
-              <p className="text-14 card-title">
-                <span className="highlited-label">Popular</span> - Viewed over
-                40K times in the last month
-              </p>
-              <div className="card-details">
-                <img className="card-img" src={ItAsset} alt="itimg" />
-
-                <div style={{ padding: "0 5px", margin: " 5px " }}>
-                  <p className="text-14 card-description">
-                    Create wealth with equities, stay protected with Gold. The
-                    sweet spot
-                  </p>
-
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <div>
-                      <p className="statbox__title">Price</p>
-                      <p className="statbox__value">₹ 250</p>
-                    </div>
-
-                    <div>
-                      <p className="statbox__title">3Ycagr</p>
-                      <p className="statbox__value">10.43%</p>
-                    </div>
-
-                    <div>
-                      <p className="statbox__title">volatality</p>
-                      <p className="statbox__value">Low</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* </div> */}
-              </div>
-            </div>
-          </Paper>
+          <ItBlock />
         </Grid>
         <Grid item xs={6}>
-          <Paper
-            className="block1-it"
-            elevation={3}
-            onClick={DividendDashboard}
-          >
-            <div className="block1-it-container">
-              <p className="text-14 card-title">
-                <span className="highlited-label">Popular</span> - Viewed over
-                25K times in the last month
-              </p>
-              <div className="card-details">
-                <img
-                  className="card-img"
-                  src={divident_logo}
-                  alt="dividentimg"
-                />
-
-                <div style={{ padding: "0 5px", margin: " 5px " }}>
-                  {/* <Button variant="contained">DIVIDENT</Button>*/}
-                  <p className="text-14 card-description">
-                    Create wealth with equities, stay protected with Gold. The
-                    sweet spot
-                  </p>
-
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <div>
-                      <p className="statbox__title">Price</p>
-                      <p className="statbox__value">₹ 420</p>
-                    </div>
-
-                    <div>
-                      <p className="statbox__title">3Ycagr</p>
-                      <p className="statbox__value">82.52%</p>
-                    </div>
-
-                    <div>
-                      <p className="statbox__title">volatality</p>
-                      <p className="statbox__value">High</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* </div> */}
-              </div>
-            </div>
-          </Paper>
+          <DividendBlock />
         </Grid>
       </Grid>
     </>

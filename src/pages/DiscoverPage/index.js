@@ -72,25 +72,28 @@ export default function Discover() {
             >
               <Tab label="Discover" {...a11yProps(0)} />
               <Tab label="News" {...a11yProps(1)} />
+              <Tab label="More" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
             <div className="BlockCards">
               <BlockCard />
             </div>
-            <div className="Taxes">
-              <TaxesData />
-            </div>
             <div className="EstimationForm">
               <UserEstimation />
             </div>
-            <div className="BrokerTable">
-              <BrokerDataTable />
-            </div>{" "}
           </TabPanel>
 
           <TabPanel value={value} index={1}>
             <NewsDisplay />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <div className="Taxes">
+              <TaxesData />
+            </div>
+            <div className="BrokerTable">
+              <BrokerDataTable />
+            </div>
           </TabPanel>
         </Box>
       </div>
