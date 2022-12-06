@@ -15,6 +15,7 @@ import icici from "../../Assets/icici.png";
 import kotak from "../../Assets/kotak.png";
 import upstox from "../../Assets/upstox.png";
 import angelbroking from "../../Assets/angelbroking.png";
+import Footer from "../../components/Footer";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -153,6 +154,7 @@ const LandingPage = () => {
         </h2>
         <Newsfetch />
       </Container>
+      <Footer />
     </>
   );
 };

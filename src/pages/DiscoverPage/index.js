@@ -12,6 +12,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import NewsDisplay from "../../components/News/NewsDisplay/index.js";
+import Footer from "../../components/Footer";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -97,6 +98,7 @@ export default function Discover() {
           </TabPanel>
         </Box>
       </div>
+      <Footer />
     </>
   );
 }

@@ -1,15 +1,49 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Paper from "@mui/material/Paper";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import divident_logo from "../../../Assets/divident_logo.png";
+import { store } from "../../../App.js";
 
 const DividendBlock = () => {
+  const { token } = useContext(store);
+  const content = useSelector((state) => state.DIVIDENT);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const DividendDashboard = () => {
-    navigate("/dividenddashboard");
+    if (token) {
+      navigate("/dividenddashboard");
+    } else {
+      navigate("/Signin");
+    }
   };
+
+  function getData() {
+    return (dispatch) => {
+      const payload = {
+        method: "POST",
+        body: JSON.stringify({ blockName: "dividentcatalogue" }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      };
+      fetch("http://localhost:5000/blockEstimate", payload)
+        .then((res) => res.json())
+        .then((json) => {
+          let result = JSON.parse(JSON.stringify(json));
+          dispatch({
+            type: "DIVIDENTBLOCK_DATA",
+            data: result.result,
+          });
+        });
+    };
+  }
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
 
   return (
     <>
@@ -26,32 +60,49 @@ const DividendBlock = () => {
           <div className="card-details">
             <img className="card-img" src={divident_logo} alt="dividentimg" />
 
-            <div style={{ padding: "0 5px", margin: " 5px ", marginLeft: "0" }}>
+            <div
+              style={{
+                padding: "0 5px",
+                margin: " 5px ",
+                marginLeft: "0",
+              }}
+            >
               {/* <Button variant="contained">DIVIDENT</Button>*/}
               <p className="text-14 card-description">
                 Create wealth with equities, stay protected with Gold. The sweet
                 spot
               </p>
+              {content.data && (
+                <ul>
+                  {content.data.map((item, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <p className="statbox__title">Price</p>
+                        <p className="statbox__value">
+                          ₹ {item.blockTotalPrice}
+                        </p>
+                      </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div>
-                  <p className="statbox__title">Price</p>
-                  <p className="statbox__value">₹ 420</p>
-                </div>
+                      <div>
+                        <p className="statbox__title">3Ycagr</p>
+                        <p className="statbox__value">{item.cagr}%</p>
+                      </div>
 
-                <div>
-                  <p className="statbox__title">3Ycagr</p>
-                  <p className="statbox__value">82.52%</p>
-                </div>
-
-                <div>
-                  <p className="statbox__title">volatality</p>
-                  <p className="statbox__value">High</p>
-                </div>
-              </div>
+                      <div>
+                        <p className="statbox__title">volatality</p>
+                        <p className="statbox__value">{item.volatality}%</p>
+                      </div>
+                    </div>
+                  ))}
+                </ul>
+              )}
             </div>
-
-            {/* </div> */}
           </div>
         </div>
       </Paper>

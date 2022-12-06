@@ -1,10 +1,11 @@
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+//import FormControlLabel from "@mui/material/FormControlLabel";
+//import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,35 +13,94 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const initialValues = { username: "", phone: "", email: "", password: "" };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+
+  const navigate = useNavigate();
+  let name, value;
+  const errors = {};
+
+  const handleChange = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const fetchApi = async () => {
+    const { username, phone, email, password } = formValues;
+    await fetch("http://localhost:5000/userSignup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        name: `${username}`,
+        phone: `${phone}`,
+        email: `${email}`,
+        password: `${password}`,
+      }),
+    })
+      .then((data) => {
+        if (data.ok) {
+          navigate("/Signin");
+        } else {
+          throw new Error("Network response was not ok.");
+        }
+      })
+      .catch(function (error) {
+        setFormErrors((errors.email = "email already exists"));
+        console.log(
+          "There has been a problem with fetch operation: ",
+          error.message
+        );
+      });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormErrors(validate(formValues));
+    //setIsSubmit(true);
+    fetchApi();
+  };
+
+  const signinLink = () => {
+    navigate("/Signin");
+  };
+
+  const validate = (values) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const alphabets = /^[A-Za-z]+$/;
+    if (!values.username) {
+      errors.username = "Username is required!";
+    } else if (!values.username.match(alphabets)) {
+      errors.username = "Enter Valid User Name!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+
+    if (!values.phone) {
+      errors.phone = "phone is required!";
+    } else if (values.phone.length !== 10) {
+      errors.phone = "This is not a valid phone number!";
+    } else if (values.phone.match(alphabets)) {
+      errors.phone = "This is not a valid phone number!";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (values.password.length < 4) {
+      errors.password = "Password must be more than 4 characters";
+    }
+    return errors;
   };
 
   return (
@@ -71,22 +131,28 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="username"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="username"
+                  label="User Name"
                   autoFocus
+                  helperText={formErrors.username}
+                  value={formValues.username}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
+                  id="phone"
+                  label="Phone"
+                  name="phone"
                   autoComplete="family-name"
+                  helperText={formErrors.phone}
+                  value={formValues.phone}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -95,8 +161,12 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  type="email"
                   name="email"
                   autoComplete="email"
+                  helperText={formErrors.email}
+                  value={formValues.email}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -108,16 +178,12 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  helperText={formErrors.password}
+                  value={formValues.password}
+                  onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
             <Button
               type="submit"
@@ -129,14 +195,13 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" onClick={signinLink}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

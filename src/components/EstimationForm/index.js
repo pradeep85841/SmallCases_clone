@@ -29,6 +29,7 @@ class UserEstimation extends Component {
     volatality: "",
     isLoading: false,
     open: false,
+    formErrors: "",
   };
 
   componentDidMount() {
@@ -38,7 +39,7 @@ class UserEstimation extends Component {
   }
 
   callApi = async () => {
-    const response = await fetch("/estimate");
+    const response = await fetch("http://localhost:5000/estimate");
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
@@ -47,8 +48,18 @@ class UserEstimation extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    this.setState({ isLoading: true });
-    const response = await fetch("/estimate", {
+
+    const formValues = {
+      stock: this.state.stock,
+      buyPrice: this.state.buyPrice,
+      date: this.state.date,
+      quantity: this.state.quantity,
+    };
+
+    this.setState({ formErrors: this.validate(formValues) });
+
+    //this.setState({ isLoading: true });
+    const response = await fetch("http://localhost:5000/estimate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,16 +77,50 @@ class UserEstimation extends Component {
     this.setState({ analysis: body.analysis });
     this.setState({ volatality: body.volatality });
     this.setState({ prediction: body.prediction });
-    this.setState({ isLoading: false });
-  };
-
-  handleClickOpen = () => {
+    // this.setState({ isLoading: false });
     this.setState({ open: true });
   };
+
+  /*handleClickOpen = () => {
+    this.handleSubmit();
+    this.setState({ open: true });
+  };*/
 
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  validate(values) {
+    const errors = {};
+    const alphabets = /^[A-Za-z]+$/;
+    const datePattern =
+      "(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))";
+
+    if (!values.stock) {
+      errors.stock = "stock is required!";
+    } else if (!values.stock.match(alphabets)) {
+      errors.stock = "This is not a valid stock symbol!";
+    } else {
+      errors.stock = null;
+    }
+    if (!values.buyPrice) {
+      errors.buyPrice = "buyPrice is required";
+    } else if (values.buyPrice.match(alphabets)) {
+      errors.buyPrice = "invalid price format";
+    }
+    if (!values.date) {
+      errors.date = "date is required";
+    } else if (!values.date.match(datePattern)) {
+      errors.date = "invalid date format";
+    }
+    if (!values.quantity) {
+      errors.quantity = "quantity is required";
+    } else if (values.quantity.match(alphabets)) {
+      errors.quantity = "invalid quantity format";
+    }
+
+    return errors;
+  }
 
   render() {
     return (
@@ -100,10 +145,12 @@ class UserEstimation extends Component {
               <div className="FormFields">
                 <TextField
                   id="outlined-textarea"
-                  label="stock"
+                  label="stock symbol"
                   multiline
                   type="text"
+                  autoFocus
                   value={this.state.stock}
+                  helperText={this.state.formErrors.stock}
                   required
                   onChange={(e) =>
                     this.setState({ stock: e.target.value.toUpperCase() })
@@ -115,6 +162,7 @@ class UserEstimation extends Component {
                   multiline
                   type="text"
                   value={this.state.buyPrice}
+                  helperText={this.state.formErrors.buyPrice}
                   required
                   onChange={(e) => this.setState({ buyPrice: e.target.value })}
                 />
@@ -125,7 +173,7 @@ class UserEstimation extends Component {
                   type="text"
                   placeholder="YYYY-MM-DD"
                   required
-                  pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                  helperText={this.state.formErrors.date}
                   title="Enter a date in this format YYYY-MM-DD"
                   value={this.state.date}
                   onChange={(e) => this.setState({ date: e.target.value })}
@@ -136,6 +184,7 @@ class UserEstimation extends Component {
                   multiline
                   type="text"
                   value={this.state.quantity}
+                  helperText={this.state.formErrors.quantity}
                   required
                   onChange={(e) => this.setState({ quantity: e.target.value })}
                 />
@@ -144,7 +193,7 @@ class UserEstimation extends Component {
               <Divider textAlign="left">
                 <Button
                   variant="outlined"
-                  onClick={this.handleClickOpen}
+                  onClick={this.handleSubmit}
                   disableElevation
                   type="submit"
                 >
