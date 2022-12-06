@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -7,9 +7,14 @@ import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
 import MuiAppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
+import { store } from "../../App.js";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function ButtonAppBar(props) {
   const navigate = useNavigate();
+
+  const { token, setToken } = useContext(store);
 
   const handleLogo = () => {
     navigate("/");
@@ -22,6 +27,10 @@ export default function ButtonAppBar(props) {
   const handleSignupBtn = () => {
     navigate("/SignUp");
   };
+
+  const handlewatchlistBtn = () => {};
+
+  const handleInvestmentsBtn = () => {};
 
   const drawerWidth = 240;
 
@@ -43,6 +52,22 @@ export default function ButtonAppBar(props) {
     }),
   }));
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleAccount = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setToken(null);
+    navigate("/discover");
+  };
+
+  const handleChangePassword = () => {};
+
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -52,7 +77,7 @@ export default function ButtonAppBar(props) {
       >
         <Toolbar
           sx={{
-            pr: "24px", // keep right padding when drawer closed
+            pr: "24px",
           }}
         >
           <Avatar
@@ -63,20 +88,68 @@ export default function ButtonAppBar(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Stockfolio
           </Typography>
+
           <div
             style={{
               display: "flex",
             }}
           >
-            <Button onClick={handleSignupBtn} color="inherit" font="bold">
-              Sign Up
-            </Button>
+            {!token ? (
+              <>
+                <Button onClick={handleSignupBtn} color="inherit" font="bold">
+                  Sign Up
+                </Button>
 
-            <Button onClick={handleLoginBtn} color="inherit">
-              Login
-            </Button>
+                <Button onClick={handleLoginBtn} color="inherit">
+                  Login
+                </Button>
 
-            <Button color="inherit">Agent</Button>
+                <Button color="inherit">Agent</Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  onClick={handlewatchlistBtn}
+                  color="inherit"
+                  font="bold"
+                >
+                  Watchlist
+                </Button>
+
+                <Button onClick={handleInvestmentsBtn} color="inherit">
+                  Investments
+                </Button>
+
+                <Button
+                  color="inherit"
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleAccount}
+                >
+                  Account
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  getContentAnchorEl={null}
+                  anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                  transformOrigin={{ vertical: "top", horizontal: "right" }}
+                  anchorEl={null}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleChangePassword}>
+                    Change Password
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+              </>
+            )}
           </div>
         </Toolbar>
       </AppBar>
