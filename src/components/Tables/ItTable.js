@@ -13,7 +13,7 @@ export default function StockTable() {
 
   function getData() {
     return (dispatch) => {
-      fetch("http://localhost:5000/itcatalogue")
+      fetch("/itcatalogue")
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));

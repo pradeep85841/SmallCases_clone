@@ -113,6 +113,13 @@ export default function ButtonAppBar(props) {
                   color="inherit"
                   font="bold"
                 >
+                  Home
+                </Button>
+                <Button
+                  onClick={handlewatchlistBtn}
+                  color="inherit"
+                  font="bold"
+                >
                   Watchlist
                 </Button>
 

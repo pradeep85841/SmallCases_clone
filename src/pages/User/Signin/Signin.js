@@ -36,7 +36,7 @@ export default function SignIn() {
 
   const fetchApi = async () => {
     const { email, password } = formValues;
-    const res = await fetch("http://localhost:5000/login", {
+    const res = await fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,6 +67,10 @@ export default function SignIn() {
 
   const signupLink = () => {
     navigate("/signup");
+  };
+
+  const homeLink = () => {
+    navigate("/discover");
   };
 
   const validate = (values) => {
@@ -151,6 +155,12 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs></Grid>
+              <Grid item style={{ paddingRight: "38%" }}>
+                <Link href="#" variant="body2" onClick={homeLink}>
+                  {"Back"}
+                </Link>
+              </Grid>
+
               <Grid item>
                 <Link href="#" variant="body2" onClick={signupLink}>
                   {"Don't have an account? Sign Up"}

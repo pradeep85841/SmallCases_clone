@@ -29,7 +29,7 @@ const ItBlock = () => {
           "Content-type": "application/json; charset=UTF-8",
         },
       };
-      fetch("http://localhost:5000/blockEstimate", payload)
+      fetch("/blockEstimate", payload)
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));

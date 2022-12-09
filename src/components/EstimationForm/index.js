@@ -39,7 +39,7 @@ class UserEstimation extends Component {
   }
 
   callApi = async () => {
-    const response = await fetch("http://localhost:5000/estimate");
+    const response = await fetch("/estimate");
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
@@ -59,7 +59,7 @@ class UserEstimation extends Component {
     this.setState({ formErrors: this.validate(formValues) });
 
     //this.setState({ isLoading: true });
-    const response = await fetch("http://localhost:5000/estimate", {
+    const response = await fetch("/estimate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -316,7 +316,9 @@ class UserEstimation extends Component {
                           aria-controls="panel2a-content"
                           id="panel2a-header"
                         >
-                          <Typography>mlow: {this.state.mlow}</Typography>
+                          <Typography>
+                            mlow: {this.state.analysis.mlow}
+                          </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                           <Typography>

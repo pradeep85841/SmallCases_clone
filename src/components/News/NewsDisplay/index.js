@@ -6,7 +6,7 @@ const NewsDisplay = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/posts")
+    fetch("/posts")
       .then((res) => res.json())
       .then((res) => {
         setNews(res[0].data);
