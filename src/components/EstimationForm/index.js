@@ -16,6 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Alert from "@mui/material/Alert";
 
 class UserEstimation extends Component {
   state = {
@@ -30,6 +31,8 @@ class UserEstimation extends Component {
     isLoading: false,
     open: false,
     formErrors: "",
+    alert: false,
+    alertContent: "",
   };
 
   componentDidMount() {
@@ -41,8 +44,12 @@ class UserEstimation extends Component {
   callApi = async () => {
     const response = await fetch("/estimate");
     const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-
+    if (response.status !== 200) {
+      this.setState({ alertContent: "Ckeck Stock Symbol and Try Again!" });
+      this.setState({ alert: true });
+      throw Error(body.message);
+    }
+    this.setState({ alert: false });
     return body;
   };
 
@@ -125,6 +132,11 @@ class UserEstimation extends Component {
   render() {
     return (
       <div className="userEstimation">
+        {alert ? (
+          <Alert severity="error">{this.state.alertContent}</Alert>
+        ) : (
+          <></>
+        )}
         <div className="FormHeading">
           <div className="FormTitle">
             <h2>Stockfolio special</h2>

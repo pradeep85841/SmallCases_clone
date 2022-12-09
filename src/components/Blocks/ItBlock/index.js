@@ -91,7 +91,7 @@ const ItBlock = () => {
 
                       <div>
                         <p className="statbox__title">volatality</p>
-                        <p className="statbox__value">{item.cagr}%</p>
+                        <p className="statbox__value">{item.volatality}%</p>
                       </div>
                     </div>
                   ))}

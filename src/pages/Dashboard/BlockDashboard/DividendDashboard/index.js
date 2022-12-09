@@ -1,21 +1,56 @@
-import * as React from "react";
+import React, { useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Chart from "../../../../components/Charts/Chart.js";
+import Chart from "../../../../components/Charts/dividendChart.js";
 import DividendCard from "../../../../components/Deposits/DividendCard";
 import StockTable from "../../../../components/Tables/DividendTable.js";
 import ButtonAppBar from "../../../../components/Navbar/index.js";
 import Paper from "@mui/material/Paper";
 import divident_logo from "../../../../Assets/divident_logo.png";
 import ItBlock from "../../../../components/Blocks/ItBlock";
+//import { store } from "../../../../App.js";
+//import getData from "../../../../components/Blocks/DividendBlock/index.js";
 
 const mdTheme = createTheme();
 
+function getData() {
+  return (dispatch) => {
+    const payload = {
+      method: "POST",
+      body: JSON.stringify({ blockName: "dividentcatalogue" }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    };
+    fetch("/blockEstimate", payload)
+      .then((res) => res.json())
+      .then((json) => {
+        let result = JSON.parse(JSON.stringify(json));
+        dispatch({
+          type: "DIVIDENTBLOCK_DATA",
+          data: result.result,
+        });
+      });
+  };
+}
+
 function DashboardContent() {
+  // const { token } = useContext(store);
+  // const navigate = useNavigate();
+  const content = useSelector((state) => state.DIVIDENT);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+
   return (
     <>
       <ThemeProvider theme={mdTheme}>
@@ -52,25 +87,27 @@ function DashboardContent() {
                       </div>
                     </div>
                   </Grid>
+                  {content.data.map((item, index) => (
+                    <Grid item xs={6}>
+                      <div className="It-values">
+                        <Grid container spacing={1}>
+                          <Grid item xs={7} key={index}>
+                            <div className="cagrposition">
+                              <p className="statbox__cagr">3Ycagr</p>
+                              <p className="statbox__per">{item.cagr}%</p>
+                            </div>
+                          </Grid>
 
-                  <Grid item xs={6}>
-                    <div className="It-values">
-                      <Grid container spacing={1}>
-                        <Grid item xs={7}>
-                          <div className="cagrposition">
-                            <p className="statbox__cagr">3Ycagr</p>
-                            <p className="statbox__per">10.43%</p>
-                          </div>
+                          <Grid item xs={4}>
+                            <div className="statbox__vol">
+                              <p>Low volatality</p>
+                              <p>{item.volatality}%</p>
+                            </div>
+                          </Grid>
                         </Grid>
-
-                        <Grid item xs={4}>
-                          <div className="statbox__vol">
-                            <p>Low volatality</p>
-                          </div>
-                        </Grid>
-                      </Grid>
-                    </div>
-                  </Grid>
+                      </div>
+                    </Grid>
+                  ))}
                 </Grid>
               </div>
 

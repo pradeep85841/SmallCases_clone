@@ -64,7 +64,7 @@
 }
 
 .BrokerBlock {
-  padding-top: 15%;
+  padding-top: 10%;
   padding-left: 6%;
 }
 
@@ -91,11 +91,11 @@
 .kotakimg,
 .upstoximg,
 .angelbrokingimg {
-  height: 60px;
-  width: 100%;
+  height: 20px;
+  width: 70%;
   background-color: white;
   border-radius: 10px;
-  padding: 3%;
+  padding: 15%;
 }
 
 .BrabdSubTitle {
@@ -114,11 +114,21 @@
 .pattern {
   text-align: center;
   background-color: rgb(217, 238, 247);
-  height: 600px;
+  height: 450px;
   display: cover;
   background-image: url("../../Assets/InvIdeasPatternRight.svg"),
     url("../../Assets/InvIdeasPatternLeft.svg");
   background-repeat: no-repeat;
   background-position-x: right, left;
   background-size: 30%;
+}
+
+.startinvestbutton {
+  width: 13%;
+  height: 45px;
+}
+
+.patternPromo {
+  margin: auto;
+  padding-top: 10%;
 }

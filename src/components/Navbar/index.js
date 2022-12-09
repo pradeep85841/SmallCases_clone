@@ -28,6 +28,10 @@ export default function ButtonAppBar(props) {
     navigate("/SignUp");
   };
 
+  const handlehomeBtn = () => {
+    navigate("/discover");
+  };
+
   const handlewatchlistBtn = () => {};
 
   const handleInvestmentsBtn = () => {};
@@ -108,11 +112,7 @@ export default function ButtonAppBar(props) {
               </>
             ) : (
               <>
-                <Button
-                  onClick={handlewatchlistBtn}
-                  color="inherit"
-                  font="bold"
-                >
+                <Button onClick={handlehomeBtn} color="inherit" font="bold">
                   Home
                 </Button>
                 <Button

@@ -6,6 +6,27 @@ import { useNavigate } from "react-router-dom";
 import divident_logo from "../../../Assets/divident_logo.png";
 import { store } from "../../../App.js";
 
+export function getData() {
+  return (dispatch) => {
+    const payload = {
+      method: "POST",
+      body: JSON.stringify({ blockName: "dividentcatalogue" }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    };
+    fetch("/blockEstimate", payload)
+      .then((res) => res.json())
+      .then((json) => {
+        let result = JSON.parse(JSON.stringify(json));
+        dispatch({
+          type: "DIVIDENTBLOCK_DATA",
+          data: result.result,
+        });
+      });
+  };
+}
+
 const DividendBlock = () => {
   const { token } = useContext(store);
   const content = useSelector((state) => state.DIVIDENT);
@@ -19,27 +40,6 @@ const DividendBlock = () => {
       navigate("/Signin");
     }
   };
-
-  function getData() {
-    return (dispatch) => {
-      const payload = {
-        method: "POST",
-        body: JSON.stringify({ blockName: "dividentcatalogue" }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      };
-      fetch("/blockEstimate", payload)
-        .then((res) => res.json())
-        .then((json) => {
-          let result = JSON.parse(JSON.stringify(json));
-          dispatch({
-            type: "DIVIDENTBLOCK_DATA",
-            data: result.result,
-          });
-        });
-    };
-  }
 
   useEffect(() => {
     dispatch(getData());

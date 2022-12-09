@@ -24,6 +24,10 @@ const LandingPage = () => {
     navigate("/discover");
   };
 
+  const startInvesting = () => {
+    navigate("/SignUp");
+  };
+
   return (
     <>
       <ButtonAppBar />
@@ -116,8 +120,18 @@ const LandingPage = () => {
       </Container>
 
       <div className="pattern">
-        <p>ideas trending among investers</p>
-        <h3>Popular Investment Ideas</h3>
+        <div className="patternPromo">
+          <h2>Start your Investment Journey with Stockfolio</h2>
+          <p>invest in trending ideas</p>
+          <Button
+            className="startinvestbutton"
+            variant="contained"
+            color="success"
+            onClick={startInvesting}
+          >
+            Start Investing
+          </Button>
+        </div>
       </div>
 
       <div className="BrokerBlock">

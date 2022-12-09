@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
 
 const theme = createTheme();
 
@@ -21,6 +22,8 @@ export default function SignUp() {
   const initialValues = { username: "", phone: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
 
   const navigate = useNavigate();
   let name, value;
@@ -51,11 +54,12 @@ export default function SignUp() {
         if (data.ok) {
           navigate("/Signin");
         } else {
-          throw new Error("Network response was not ok.");
+          setAlertContent("Email already exists!");
+          setAlert(true);
+          //throw new Error("Email already exists!");
         }
       })
       .catch(function (error) {
-        setFormErrors((errors.email = "email already exists"));
         console.log(
           "There has been a problem with fetch operation: ",
           error.message
@@ -109,6 +113,7 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
+      {alert ? <Alert severity="error">{alertContent}</Alert> : <></>}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

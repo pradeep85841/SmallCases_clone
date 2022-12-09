@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Chart from "../../../../components/Charts/Chart.js";
+import Chart from "../../../../components/Charts/itChart.js";
 import ItCard from "../../../../components/Deposits/ItCard";
 import StockTable from "../../../../components/Tables/ItTable.js";
 import ButtonAppBar from "../../../../components/Navbar/index.js";
@@ -13,10 +13,41 @@ import Paper from "@mui/material/Paper";
 import "./index.css";
 import ItAsset from "../../../../Assets/SCET_0005.png";
 import DividendBlock from "../../../../components/Blocks/DividendBlock";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const content = useSelector((state) => state.IT);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function getData() {
+    return (dispatch) => {
+      const payload = {
+        method: "POST",
+        body: JSON.stringify({ blockName: "itcatalogue" }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      };
+      fetch("/blockEstimate", payload)
+        .then((res) => res.json())
+        .then((json) => {
+          let result = JSON.parse(JSON.stringify(json));
+          dispatch({
+            type: "ITBLOCK_DATA",
+            data: result.result,
+          });
+        });
+    };
+  }
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+
   return (
     <>
       <ThemeProvider theme={mdTheme}>
@@ -52,20 +83,23 @@ function DashboardContent() {
 
                   <Grid item xs={6}>
                     <div className="It-values">
-                      <Grid container spacing={1}>
-                        <Grid item xs={7}>
-                          <div className="cagrposition">
-                            <p className="statbox__cagr">3Ycagr</p>
-                            <p className="statbox__per">10.43%</p>
-                          </div>
-                        </Grid>
+                      {content.data.map((item, index) => (
+                        <Grid container spacing={1} key={index}>
+                          <Grid item xs={7}>
+                            <div className="cagrposition">
+                              <p className="statbox__cagr">3Ycagr</p>
+                              <p className="statbox__per">{item.cagr}%</p>
+                            </div>
+                          </Grid>
 
-                        <Grid item xs={4}>
-                          <div className="statbox__vol">
-                            <p>Low volatality</p>
-                          </div>
+                          <Grid item xs={4}>
+                            <div className="statbox__vol">
+                              <p>Low volatality</p>
+                              <p>{item.volatality}%</p>
+                            </div>
+                          </Grid>
                         </Grid>
-                      </Grid>
+                      ))}
                     </div>
                   </Grid>
                 </Grid>
