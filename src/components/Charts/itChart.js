@@ -16,15 +16,27 @@ function createData(time, amount) {
 }
 
 const data = [
-  createData("00:00", 0),
-  createData("03:00", 300),
-  createData("06:00", 600),
-  createData("09:00", 800),
-  createData("12:00", 1500),
-  createData("15:00", 2000),
-  createData("18:00", 2400),
-  createData("21:00", 2400),
-  createData("24:00", undefined),
+  createData("2022-10-01", 18744.5),
+  createData("2022-10-02", 18744.97),
+  createData("2022-10-05", 18744.49),
+  createData("2022-10-06", 18744.16),
+  createData("2022-10-07", 18744.86),
+  createData("2022-10-08", 18744.97),
+  createData("2022-10-09", 18851.13),
+  createData("2022-10-12", 18834.71),
+  createData("2022-10-13", 18744.63),
+  createData("2022-10-14", 18762.17),
+  createData("2022-10-15", 18945.12),
+  createData("2022-10-16", 18862.86),
+  createData("2022-10-19", 18890.17),
+  createData("2022-10-20", 18944.99),
+  createData("2022-10-21", 18897.8),
+  createData("2022-10-22", 18944.33),
+  createData("2022-10-23", 18967.18),
+  createData("2022-10-26", 18978.21),
+  createData("2022-10-27", 18950.81),
+  createData("2022-10-28", 18899.56),
+  createData("2022-10-29", undefined),
 ];
 
 export default function Chart() {
@@ -61,7 +73,7 @@ export default function Chart() {
                 ...theme.typography.body1,
               }}
             >
-              Sales ($)
+              Price (₹)
             </Label>
           </YAxis>
           <Line

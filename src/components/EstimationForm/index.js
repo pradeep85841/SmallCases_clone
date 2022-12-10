@@ -16,7 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Alert from "@mui/material/Alert";
+//import Alert from "@mui/material/Alert";
 
 class UserEstimation extends Component {
   state = {
@@ -38,18 +38,17 @@ class UserEstimation extends Component {
   componentDidMount() {
     this.callApi()
       .then((res) => this.setState({ response: res.express }))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   callApi = async () => {
     const response = await fetch("/estimate");
     const body = await response.json();
     if (response.status !== 200) {
-      this.setState({ alertContent: "Ckeck Stock Symbol and Try Again!" });
-      this.setState({ alert: true });
       throw Error(body.message);
     }
-    this.setState({ alert: false });
     return body;
   };
 
@@ -65,7 +64,7 @@ class UserEstimation extends Component {
 
     this.setState({ formErrors: this.validate(formValues) });
 
-    //this.setState({ isLoading: true });
+    this.setState({ isLoading: true });
     const response = await fetch("/estimate", {
       method: "POST",
       headers: {
@@ -78,14 +77,21 @@ class UserEstimation extends Component {
         quantity: this.state.quantity,
       }),
     });
-    const body = await response.json();
-
-    this.setState({ cagr: body.cagr });
-    this.setState({ analysis: body.analysis });
-    this.setState({ volatality: body.volatality });
-    this.setState({ prediction: body.prediction });
-    // this.setState({ isLoading: false });
-    this.setState({ open: true });
+    if (response.ok) {
+      const body = await response.json();
+      this.setState({ cagr: body.cagr });
+      this.setState({ analysis: body.analysis });
+      this.setState({ volatality: body.volatality });
+      this.setState({ prediction: body.prediction });
+      this.setState({ isLoading: false });
+      this.setState({ open: true });
+    } else {
+      this.setState({ setAlertContent: "check Details and try again!" });
+      this.setState({ alert: true });
+      this.setState({ isLoading: false });
+    }
+    this.setState({ alert: false });
+    this.setState({ isLoading: false });
   };
 
   /*handleClickOpen = () => {
@@ -131,245 +137,235 @@ class UserEstimation extends Component {
 
   render() {
     return (
-      <div className="userEstimation">
-        {alert ? (
-          <Alert severity="error">{this.state.alertContent}</Alert>
-        ) : (
-          <></>
-        )}
-        <div className="FormHeading">
-          <div className="FormTitle">
-            <h2>Stockfolio special</h2>
+      <>
+        <div className="userEstimation">
+          <div className="FormHeading">
+            <div className="FormTitle">
+              <h2>Stockfolio special</h2>
+            </div>
+            <div className="FormDescription">
+              <h2>All you need to build your research business</h2>
+              <p>
+                Business-in-a-box solution with all functionalities for you to
+                start, run and grow your curated portfolio business.
+              </p>
+            </div>
           </div>
-          <div className="FormDescription">
-            <h2>All you need to build your research business</h2>
-            <p>
-              Business-in-a-box solution with all functionalities for you to
-              start, run and grow your curated portfolio business.
-            </p>
-          </div>
-        </div>
 
-        <p>{this.state.response}</p>
-        <Paper elevation={2} className="Elivatedpaper">
-          <Paper variant="outline" className="Outlinepaper">
-            <form onSubmit={this.handleSubmit}>
-              <div className="FormFields">
-                <TextField
-                  id="outlined-textarea"
-                  label="stock symbol"
-                  multiline
-                  type="text"
-                  autoFocus
-                  value={this.state.stock}
-                  helperText={this.state.formErrors.stock}
-                  required
-                  onChange={(e) =>
-                    this.setState({ stock: e.target.value.toUpperCase() })
-                  }
-                />
-                <TextField
-                  id="outlined-textarea"
-                  label="Invested Amount"
-                  multiline
-                  type="text"
-                  value={this.state.buyPrice}
-                  helperText={this.state.formErrors.buyPrice}
-                  required
-                  onChange={(e) => this.setState({ buyPrice: e.target.value })}
-                />
-                <TextField
-                  id="outlined-textarea"
-                  label="YYYY-MM-DD"
-                  multiline
-                  type="text"
-                  placeholder="YYYY-MM-DD"
-                  required
-                  helperText={this.state.formErrors.date}
-                  title="Enter a date in this format YYYY-MM-DD"
-                  value={this.state.date}
-                  onChange={(e) => this.setState({ date: e.target.value })}
-                />
-                <TextField
-                  id="outlined-textarea"
-                  label="Quantity"
-                  multiline
-                  type="text"
-                  value={this.state.quantity}
-                  helperText={this.state.formErrors.quantity}
-                  required
-                  onChange={(e) => this.setState({ quantity: e.target.value })}
-                />
-              </div>
-              <br></br>
-              <Divider textAlign="left">
-                <Button
-                  variant="outlined"
-                  onClick={this.handleSubmit}
-                  disableElevation
-                  type="submit"
-                >
-                  Estimate
-                </Button>
-              </Divider>
-              <br></br>
-            </form>
-            {this.state.isLoading ? (
-              <div>Loading ...</div>
-            ) : (
-              <div className="ResponseDisplay">
-                <Dialog
-                  open={this.state.open}
-                  onClose={this.handleClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"Your Investment Estimation"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography>CAGR: {this.state.cagr}</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse malesuada lacus ex, sit amet
-                            blandit leo lobortis eget.
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+          <p>{this.state.response}</p>
+          <Paper elevation={2} className="Elivatedpaper">
+            <Paper variant="outline" className="Outlinepaper">
+              <form onSubmit={this.handleSubmit}>
+                <div className="FormFields">
+                  <TextField
+                    id="outlined-textarea"
+                    label="stock symbol"
+                    multiline
+                    type="text"
+                    autoFocus
+                    value={this.state.stock}
+                    helperText={this.state.formErrors.stock}
+                    required
+                    onChange={(e) =>
+                      this.setState({ stock: e.target.value.toUpperCase() })
+                    }
+                  />
+                  <TextField
+                    id="outlined-textarea"
+                    label="Invested Amount"
+                    multiline
+                    type="text"
+                    value={this.state.buyPrice}
+                    helperText={this.state.formErrors.buyPrice}
+                    required
+                    onChange={(e) =>
+                      this.setState({ buyPrice: e.target.value })
+                    }
+                  />
+                  <TextField
+                    id="outlined-textarea"
+                    label="YYYY-MM-DD"
+                    multiline
+                    type="text"
+                    placeholder="YYYY-MM-DD"
+                    required
+                    helperText={this.state.formErrors.date}
+                    title="Enter a date in this format YYYY-MM-DD"
+                    value={this.state.date}
+                    onChange={(e) => this.setState({ date: e.target.value })}
+                  />
+                  <TextField
+                    id="outlined-textarea"
+                    label="Quantity"
+                    multiline
+                    type="text"
+                    value={this.state.quantity}
+                    helperText={this.state.formErrors.quantity}
+                    required
+                    onChange={(e) =>
+                      this.setState({ quantity: e.target.value })
+                    }
+                  />
+                </div>
+                <br></br>
+                <Divider textAlign="left">
+                  <Button
+                    variant="outlined"
+                    onClick={this.handleSubmit}
+                    disableElevation
+                    type="submit"
+                  >
+                    Estimate
+                  </Button>
+                </Divider>
+                <br></br>
+              </form>
+              {this.state.isLoading ? (
+                <div>Wait while we estimating your investment ...</div>
+              ) : (
+                <div className="ResponseDisplay">
+                  <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Your Investment Estimation"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        <Accordion>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                          >
+                            <Typography>CAGR: {this.state.cagr}</Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Suspendisse malesuada lacus ex, sit amet
+                              blandit leo lobortis eget.
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
 
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Typography>
-                            volatality: {this.state.volatality}
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse malesuada lacus ex, sit amet
-                            blandit leo lobortis eget.
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+                        <Accordion>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                          >
+                            <Typography>
+                              volatality: {this.state.volatality}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Suspendisse malesuada lacus ex, sit amet
+                              blandit leo lobortis eget.
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
 
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Typography>
-                            DayHigh: {this.state.analysis.DayHigh}
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse malesuada lacus ex, sit amet
-                            blandit leo lobortis eget.
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+                        <Accordion>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                          >
+                            <Typography>
+                              DayHigh: {this.state.analysis.DayHigh}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Suspendisse malesuada lacus ex, sit amet
+                              blandit leo lobortis eget.
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
 
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Typography>
-                            DayLow: {this.state.analysis.DayLow}
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse malesuada lacus ex, sit amet
-                            blandit leo lobortis eget.
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+                        <Accordion>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                          >
+                            <Typography>
+                              DayLow: {this.state.analysis.DayLow}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Suspendisse malesuada lacus ex, sit amet
+                              blandit leo lobortis eget.
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
 
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Typography>
-                            mHigh: {this.state.analysis.mHigh}
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse malesuada lacus ex, sit amet
-                            blandit leo lobortis eget.
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+                        <Accordion>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                          >
+                            <Typography>
+                              mHigh: {this.state.analysis.mHigh}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Suspendisse malesuada lacus ex, sit amet
+                              blandit leo lobortis eget.
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
 
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Typography>
-                            mlow: {this.state.analysis.mlow}
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse malesuada lacus ex, sit amet
-                            blandit leo lobortis eget.
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+                        <Accordion>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                          >
+                            <Typography>
+                              mlow: {this.state.analysis.mlow}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Typography>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Suspendisse malesuada lacus ex, sit amet
+                              blandit leo lobortis eget.
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
 
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel2a-content"
-                          id="panel2a-header"
-                        >
-                          <Typography>
-                            prediction: {this.state.prediction}
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Suspendisse malesuada lacus ex, sit amet
-                            blandit leo lobortis eget.
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={this.handleClose}>Close</Button>
-                  </DialogActions>
-                </Dialog>
-              </div>
-            )}
+                        <Accordion>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                          ></AccordionSummary>
+                        </Accordion>
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={this.handleClose}>Close</Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
+              )}
+            </Paper>
           </Paper>
-        </Paper>
-      </div>
+        </div>
+      </>
     );
   }
 }

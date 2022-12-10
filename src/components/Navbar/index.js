@@ -10,11 +10,67 @@ import { styled } from "@mui/material/styles";
 import { store } from "../../App.js";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+//import { useState } from "react";
+
+import PropTypes from "prop-types";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
+function BootstrapDialogTitle(props) {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+}
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default function ButtonAppBar(props) {
   const navigate = useNavigate();
 
   const { token, setToken } = useContext(store);
+  const [openProfile, setOpenProfile] = React.useState(false);
+
+  const handleProfileClose = () => {
+    setOpenProfile(false);
+  };
 
   const handleLogo = () => {
     navigate("/");
@@ -32,11 +88,23 @@ export default function ButtonAppBar(props) {
     navigate("/discover");
   };
 
-  const handlewatchlistBtn = () => {};
+  const handleProfileBtn = () => {
+    setOpenProfile(true);
+  };
+
+  const handlewatchlistBtn = () => {
+    navigate("/watchlist");
+  };
 
   const handleInvestmentsBtn = () => {};
 
   const drawerWidth = 240;
+
+  const style = {
+    width: "100%",
+    maxWidth: 360,
+    bgcolor: "background.paper",
+  };
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -149,10 +217,41 @@ export default function ButtonAppBar(props) {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleChangePassword}>
-                    Change Password
-                  </MenuItem>
+                  <MenuItem onClick={handleProfileBtn}>profile</MenuItem>
+                  <BootstrapDialog
+                    onClose={handleProfileClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={openProfile}
+                  >
+                    <BootstrapDialogTitle
+                      id="customized-dialog-title"
+                      onClose={handleProfileClose}
+                    >
+                      Profile Details
+                    </BootstrapDialogTitle>
+                    <DialogContent dividers>
+                      <List
+                        sx={style}
+                        component="nav"
+                        aria-label="mailbox folders"
+                      >
+                        <ListItem>
+                          <p>Account Holder: </p>
+                          <ListItemText primary={token.data.name} />
+                        </ListItem>
+                        <Divider />
+                        <ListItem divider>
+                          <p>Registered EmailID: </p>
+                          <ListItemText primary={token.data.email_id} />
+                        </ListItem>
+                        <ListItem>
+                          <p>Contact Number: </p>
+                          <ListItemText primary={token.data.phone_no} />
+                        </ListItem>
+                        <Divider light />
+                      </List>
+                    </DialogContent>
+                  </BootstrapDialog>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -13,7 +13,7 @@ import Paper from "@mui/material/Paper";
 import "./index.css";
 import ItAsset from "../../../../Assets/SCET_0005.png";
 import DividendBlock from "../../../../components/Blocks/DividendBlock";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 const mdTheme = createTheme();
@@ -21,7 +21,7 @@ const mdTheme = createTheme();
 function DashboardContent() {
   const content = useSelector((state) => state.IT);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   function getData() {
     return (dispatch) => {

@@ -6,5 +6,6 @@ const Reducer = combineReducers({
   DIVIDENT: reducers.DividentReducer,
   ItList: reducers.ItList,
   DividentList: reducers.DividentList,
+  WATCHLIST: reducers.WatchList,
 });
 export default Reducer;

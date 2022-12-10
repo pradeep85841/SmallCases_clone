@@ -45,3 +45,15 @@ export function DividentList(state = { data: "" }, action) {
       return state;
   }
 }
+
+export function WatchList(state = { data: "" }, action) {
+  switch (action.type) {
+    case "WatchList_DATA":
+      return {
+        ...state,
+        data: action.data,
+      };
+    default:
+      return state;
+  }
+}
