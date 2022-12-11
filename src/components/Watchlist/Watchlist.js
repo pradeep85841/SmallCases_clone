@@ -39,7 +39,7 @@ export default function Watchlist() {
       {content.data.map((item, index) => (
         <>
           <Typography component="p" variant="h6">
-            {item}
+            {item.data}
           </Typography>
         </>
       ))}
