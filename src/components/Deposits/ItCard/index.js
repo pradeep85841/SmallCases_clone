@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import "./index.css";
 import { store } from "../../../App.js";
 import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 
 export default function ItCard() {
   const content = useSelector((state) => state.IT);
@@ -13,6 +14,7 @@ export default function ItCard() {
   const { token } = useContext(store);
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState("");
+  const navigate = useNavigate();
 
   function getData() {
     return (dispatch) => {
@@ -46,11 +48,12 @@ export default function ItCard() {
         name: `${token.data.name}`,
         email_id: `${token.data.email_id}`,
         phone: `${token.data.phone_no}`,
-        investment: `${"itcatalogue"}`,
+        investment: `${"ItBlock"}`,
       }),
     });
     try {
       if (res.ok) {
+        navigate("/watchlist");
       }
     } catch (error) {
       console.log("There has been a problem with fetch operation: ");
