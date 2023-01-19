@@ -5,7 +5,7 @@ const BASE_URL = process.env.BASE_URL;
 const Newsfetch = () => {
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch(`${BASE_URL}/posts`)
+    fetch(`${BASE_URL}"/posts"`)
       .then((res) => res.json())
       .then((res) => {
         setNews(res[0].data);
