@@ -5,6 +5,7 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 import divident_logo from "../../../Assets/divident_logo.png";
 import { store } from "../../../App.js";
+const BASE_URL = process.env.BASE_URL;
 
 export function getData() {
   return (dispatch) => {
@@ -15,7 +16,7 @@ export function getData() {
         "Content-type": "application/json; charset=UTF-8",
       },
     };
-    fetch("/blockEstimate", payload)
+    fetch(`${BASE_URL}/blockEstimate`, payload)
       .then((res) => res.json())
       .then((json) => {
         let result = JSON.parse(JSON.stringify(json));
