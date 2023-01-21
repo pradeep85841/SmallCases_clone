@@ -5,7 +5,7 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 import divident_logo from "../../../Assets/divident_logo.png";
 import { store } from "../../../App.js";
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export function getData() {
   return (dispatch) => {
