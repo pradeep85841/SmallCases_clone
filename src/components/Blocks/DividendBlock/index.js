@@ -16,7 +16,7 @@ export function getData() {
         "Content-type": "application/json; charset=UTF-8",
       },
     };
-    fetch(`${BASE_URL}/blockEstimate`, payload)
+    fetch(`54.226.68.179:5000/blockEstimate`, payload)
       .then((res) => res.json())
       .then((json) => {
         let result = JSON.parse(JSON.stringify(json));
