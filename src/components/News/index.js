@@ -9,8 +9,8 @@ const Newsfetch = () => {
       .then((res) => res.json())
       .then((res) => {
         setNews(res[0].data);
-      });
-    //.catch((err) => console.error(err));
+      })
+      .catch((err) => console.error(err));
   });
 
   return (
