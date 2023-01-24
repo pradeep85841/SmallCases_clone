@@ -4,7 +4,7 @@ const https = require("https");
 
 app.use(
   proxy("/api", {
-    target: process.env.REACT_APP_API_URL,
+    target: "54.226.68.179:5000",
     secure: true,
     changeOrigin: true,
     agent: new https.Agent({
