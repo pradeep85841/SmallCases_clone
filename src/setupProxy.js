@@ -1,6 +1,6 @@
 //const proxy = require("http-proxy-middleware");
 //import proxy from "http-proxy-middleware";
-/*const https = require("https");
+const https = require("https");
 
 app.use(
   proxy("/api", {
@@ -13,4 +13,3 @@ app.use(
     }),
   })
 );
-*/
