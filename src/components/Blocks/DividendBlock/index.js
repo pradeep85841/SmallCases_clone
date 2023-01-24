@@ -11,7 +11,7 @@ export function getData() {
   return (dispatch) => {
     const payload = {
       method: "POST",
-      body: JSON.stringify({ blockName: "dividentcatalogue" }),
+      body: JSON.stringify({ option: "dividentcatalogue" }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
