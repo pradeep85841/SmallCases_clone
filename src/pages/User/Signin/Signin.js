@@ -15,6 +15,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { store } from "../../../App.js";
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const theme = createTheme();
 
@@ -36,7 +37,7 @@ export default function SignIn() {
 
   const fetchApi = async () => {
     const { email, password } = formValues;
-    const res = await fetch("/login", {
+    const res = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
