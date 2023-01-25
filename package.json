@@ -50,5 +50,8 @@
   },
   "devDependencies": {
     "webpack-dev-server": "^4.11.1"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
   }
 }
