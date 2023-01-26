@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import News from "./NewsSlider/index.js";
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Newsfetch = () => {
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch(`${BASE_URL}/posts`)
+    fetch(`/posts`)
       .then((res) => res.json())
       .then((res) => {
         setNews(res[0].data);
