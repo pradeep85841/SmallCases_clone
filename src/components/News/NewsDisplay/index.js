@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const NewsDisplay = () => {
   const [search, setSearch] = useState("");
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("/posts")
+    fetch(`${BASE_URL}/posts`)
       .then((res) => res.json())
       .then((res) => {
         setNews(res[0].data);
