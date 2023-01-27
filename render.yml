@@ -1,0 +1,7 @@
+build:
+  command: npm install && npm run build
+  env:
+    NODE_ENV: production
+
+routes:
+  /: build/index.js
