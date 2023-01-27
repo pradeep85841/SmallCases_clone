@@ -2,6 +2,7 @@
   "name": "stockfoliofront",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://ec2-54-209-53-115.compute-1.amazonaws.com",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
