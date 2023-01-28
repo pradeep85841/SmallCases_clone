@@ -9,9 +9,10 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 export function getData() {
   return (dispatch) => {
+    const value = "dividentcatalogue";
     const payload = {
       method: "POST",
-      body: JSON.stringify({ blockName: "dividentcatalogue" }),
+      body: JSON.stringify({ blockName: `${value}` }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
