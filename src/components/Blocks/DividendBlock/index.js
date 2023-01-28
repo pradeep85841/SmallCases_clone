@@ -23,7 +23,7 @@ export function getData() {
         let result = JSON.parse(JSON.stringify(json));
         dispatch({
           type: "DIVIDENTBLOCK_DATA",
-          data: result.result,
+          data: result,
         });
       });
   };
