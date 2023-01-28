@@ -17,6 +17,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 //import Alert from "@mui/material/Alert";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 class UserEstimation extends Component {
   state = {
@@ -44,11 +45,11 @@ class UserEstimation extends Component {
   }
 
   callApi = async () => {
-    const response = await fetch("/estimate");
+    const response = await fetch(`${BASE_URL}/estimate`);
     const body = await response.json();
-    if (response.status !== 200) {
+    /* if (response.status !== 200) {
       throw Error(body.message);
-    }
+    }*/
     return body;
   };
 
@@ -65,7 +66,7 @@ class UserEstimation extends Component {
     this.setState({ formErrors: this.validate(formValues) });
 
     this.setState({ isLoading: true });
-    const response = await fetch("/estimate", {
+    const response = await fetch(`${BASE_URL}/estimate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
