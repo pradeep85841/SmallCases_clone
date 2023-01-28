@@ -7,6 +7,7 @@ import "./index.css";
 import { store } from "../../../App.js";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function ItCard() {
   const content = useSelector((state) => state.IT);
@@ -25,13 +26,13 @@ export default function ItCard() {
           "Content-type": "application/json; charset=UTF-8",
         },
       };
-      fetch("/blockEstimate", payload)
+      fetch(`${BASE_URL}/blockEstimate`, payload)
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));
           dispatch({
             type: "ITBLOCK_DATA",
-            data: result.result,
+            data: result,
           });
         });
     };

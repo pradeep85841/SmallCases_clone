@@ -6,6 +6,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "../Title/Title.js";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function StockTable() {
   const content = useSelector((state) => state.ItList);
@@ -13,7 +14,7 @@ export default function StockTable() {
 
   function getData() {
     return (dispatch) => {
-      fetch("/itcatalogue")
+      fetch(`${BASE_URL}/itcatalogue`)
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));

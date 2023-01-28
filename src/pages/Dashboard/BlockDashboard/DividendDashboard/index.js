@@ -17,6 +17,7 @@ import divident_logo from "../../../../Assets/divident_logo.png";
 import ItBlock from "../../../../components/Blocks/ItBlock";
 //import { store } from "../../../../App.js";
 //import getData from "../../../../components/Blocks/DividendBlock/index.js";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const mdTheme = createTheme();
 
@@ -29,13 +30,13 @@ function getData() {
         "Content-type": "application/json; charset=UTF-8",
       },
     };
-    fetch("/blockEstimate", payload)
+    fetch(`${BASE_URL}/blockEstimate`, payload)
       .then((res) => res.json())
       .then((json) => {
         let result = JSON.parse(JSON.stringify(json));
         dispatch({
           type: "DIVIDENTBLOCK_DATA",
-          data: result.result,
+          data: result,
         });
       });
   };

@@ -15,6 +15,7 @@ import ItAsset from "../../../../Assets/SCET_0005.png";
 import DividendBlock from "../../../../components/Blocks/DividendBlock";
 //import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const mdTheme = createTheme();
 
@@ -32,13 +33,13 @@ function DashboardContent() {
           "Content-type": "application/json; charset=UTF-8",
         },
       };
-      fetch("/blockEstimate", payload)
+      fetch(`${BASE_URL}/blockEstimate`, payload)
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));
           dispatch({
             type: "ITBLOCK_DATA",
-            data: result.result,
+            data: result,
           });
         });
     };

@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import "./index.css";
 import { store } from "../../../App.js";
 import Alert from "@mui/material/Alert";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function DividendCard() {
   const content = useSelector((state) => state.DIVIDENT);
@@ -23,13 +24,13 @@ export default function DividendCard() {
           "Content-type": "application/json; charset=UTF-8",
         },
       };
-      fetch("/blockEstimate", payload)
+      fetch(`${BASE_URL}/blockEstimate`, payload)
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));
           dispatch({
             type: "DIVIDENTBLOCK_DATA",
-            data: result.result,
+            data: result,
           });
         });
     };
