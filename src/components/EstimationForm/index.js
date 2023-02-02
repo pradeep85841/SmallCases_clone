@@ -37,17 +37,18 @@ class UserEstimation extends Component {
   };
 
   componentDidMount() {
-    this.callApi().then((res) => this.setState({ response: res.express }));
-    /*.catch((err) => {
+    this.callApi()
+      .then((res) => this.setState({ response: res.express }))
+      .catch((err) => {
         console.log(err);
-      });*/
+      });
   }
 
   callApi = async () => {
     const response = await fetch(`${BASE_URL}/estimate`);
     const body = await response.json();
     if (response.status !== 200) {
-      throw Error(body.message);
+      // throw Error(body.message);
     }
     return body;
   };
