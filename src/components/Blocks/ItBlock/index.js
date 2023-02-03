@@ -23,10 +23,15 @@ const ItBlock = () => {
   };
 
   function getData() {
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    };
     return (dispatch) => {
       const payload = {
         method: "POST",
         body: JSON.stringify({ blockName: "itcatalogue" }),
+        headers: headers,
       };
       fetch(`${BASE_URL}/blockEstimate`, payload)
         .then((res) => res.json())
