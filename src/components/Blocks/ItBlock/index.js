@@ -27,9 +27,6 @@ const ItBlock = () => {
       const payload = {
         method: "POST",
         body: JSON.stringify({ blockName: "itcatalogue" }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
       };
       fetch(`${BASE_URL}/blockEstimate`, payload)
         .then((res) => res.json())
