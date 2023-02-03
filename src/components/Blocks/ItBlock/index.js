@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../../App.js";
 //const BASE_URL = process.env.REACT_APP_API_URL;
 import { BASE_URL } from "../../../Services/BackendURL";
+const axios = require("axios");
 
 const ItBlock = () => {
   const { token } = useContext(store);
@@ -33,7 +34,8 @@ const ItBlock = () => {
         headers: headers,
         body: JSON.stringify({ blockName: "itcatalogue" }),
       };
-      fetch(`${BASE_URL}/blockEstimate`, payload)
+      axios
+        .post(`${BASE_URL}/blockEstimate`, payload)
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));
