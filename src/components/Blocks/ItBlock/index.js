@@ -30,8 +30,8 @@ const ItBlock = () => {
     return (dispatch) => {
       const payload = {
         method: "POST",
-        body: JSON.stringify({ blockName: "itcatalogue" }),
         headers: headers,
+        body: JSON.stringify({ blockName: "itcatalogue" }),
       };
       fetch(`${BASE_URL}/blockEstimate`, payload)
         .then((res) => res.json())
