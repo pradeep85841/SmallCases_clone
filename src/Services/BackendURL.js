@@ -1,1 +1,1 @@
-export const BASE_URL = "https://wondrous-khapse-b31dfc.netlify.app";
+export const BASE_URL = "https://backend-c551.onrender.com";
