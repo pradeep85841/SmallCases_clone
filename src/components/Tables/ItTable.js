@@ -6,7 +6,8 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "../Title/Title.js";
-const BASE_URL = process.env.REACT_APP_API_URL;
+//const BASE_URL = process.env.REACT_APP_API_URL;
+import { BASE_URL } from "../../Services/BackendURL.js";
 
 export default function StockTable() {
   const content = useSelector((state) => state.ItList);

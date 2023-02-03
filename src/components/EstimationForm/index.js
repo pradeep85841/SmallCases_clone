@@ -17,7 +17,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 //import Alert from "@mui/material/Alert";
-const BASE_URL = process.env.REACT_APP_API_URL;
+//const BASE_URL = process.env.REACT_APP_API_URL;
+import { BASE_URL } from "../../Services/BackendURL";
 
 class UserEstimation extends Component {
   state = {

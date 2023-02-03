@@ -6,7 +6,8 @@ import Button from "@mui/material/Button";
 import "./index.css";
 import { store } from "../../../App.js";
 import Alert from "@mui/material/Alert";
-const BASE_URL = process.env.REACT_APP_API_URL;
+//const BASE_URL = process.env.REACT_APP_API_URL;
+import { BASE_URL } from "../../../Services/BackendURL";
 
 export default function DividendCard() {
   const content = useSelector((state) => state.DIVIDENT);

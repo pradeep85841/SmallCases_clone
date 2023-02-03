@@ -5,7 +5,8 @@ import ItBlock from "../Blocks/ItBlock";
 import DividendBlock from "../Blocks/DividendBlock";
 import ButtonAppBar from "../Navbar";
 import Footer from "../Footer";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../Services/BackendURL.js";
 
 export default function Watchlist() {
   const content = useSelector((state) => state.WATCHLIST);
@@ -23,7 +24,7 @@ export default function Watchlist() {
           "Content-type": "application/json; charset=UTF-8",
         },
       };
-      fetch("/getWatchlist", payload)
+      fetch(`${BASE_URL}/getWatchlist`, payload)
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));

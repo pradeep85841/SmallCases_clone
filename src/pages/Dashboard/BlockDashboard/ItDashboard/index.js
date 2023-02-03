@@ -15,7 +15,8 @@ import ItAsset from "../../../../Assets/SCET_0005.png";
 import DividendBlock from "../../../../components/Blocks/DividendBlock";
 //import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-const BASE_URL = process.env.REACT_APP_API_URL;
+//const BASE_URL = process.env.REACT_APP_API_URL;
+import { BASE_URL } from "../../../../Services/BackendURL";
 
 const mdTheme = createTheme();
 

@@ -5,7 +5,8 @@ import ItAsset from "../../../Assets/SCET_0005.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../../App.js";
-const BASE_URL = process.env.REACT_APP_API_URL;
+//const BASE_URL = process.env.REACT_APP_API_URL;
+import { BASE_URL } from "../../../Services/BackendURL";
 
 const ItBlock = () => {
   const { token } = useContext(store);

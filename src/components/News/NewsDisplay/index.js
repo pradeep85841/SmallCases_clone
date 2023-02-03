@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-const BASE_URL = process.env.REACT_APP_API_URL;
+//const BASE_URL = process.env.REACT_APP_API_URL;
+import { BASE_URL } from "../../../Services/BackendURL";
 
 const NewsDisplay = () => {
   const [search, setSearch] = useState("");

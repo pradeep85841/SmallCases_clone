@@ -7,7 +7,8 @@ import "./index.css";
 import { store } from "../../../App.js";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
-const BASE_URL = process.env.REACT_APP_API_URL;
+//const BASE_URL = process.env.REACT_APP_API_URL;
+import { BASE_URL } from "../../../Services/BackendURL";
 
 export default function ItCard() {
   const content = useSelector((state) => state.IT);
