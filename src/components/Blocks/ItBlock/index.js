@@ -24,15 +24,15 @@ const ItBlock = () => {
   };
 
   function getData() {
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    };
     return (dispatch) => {
       const payload = {
         method: "POST",
         headers: headers,
         body: JSON.stringify({ blockName: "itcatalogue" }),
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       };
       axios
         .post(
