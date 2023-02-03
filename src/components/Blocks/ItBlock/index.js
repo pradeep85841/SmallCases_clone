@@ -35,11 +35,7 @@ const ItBlock = () => {
         Accept: "application/json",
       };
       axios
-        .post(
-          `${BASE_URL}/blockEstimate`,
-          { blockName: "itcatalogue" },
-          { headers: headers }
-        )
+        .post(`${BASE_URL}/blockEstimate`, { blockName: "itcatalogue" })
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));
