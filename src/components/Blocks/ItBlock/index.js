@@ -24,17 +24,18 @@ const ItBlock = () => {
   };
 
   function getData() {
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    };
     return (dispatch) => {
       const payload = {
         method: "POST",
-        headers: headers,
         body: JSON.stringify({ blockName: "itcatalogue" }),
       };
-      fetch(`${BASE_URL}/blockEstimate`, payload)
+      fetch(`${BASE_URL}/blockEstimate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ blockName: "itcatalogue" }),
+      })
         .then((res) => res.json())
         .then((json) => {
           let result = JSON.parse(JSON.stringify(json));
