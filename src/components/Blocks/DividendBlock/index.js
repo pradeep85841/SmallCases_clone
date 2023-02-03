@@ -14,9 +14,6 @@ export function getData() {
     const payload = {
       method: "POST",
       body: JSON.stringify({ blockName: `${value}` }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
     };
     fetch(`${BASE_URL}/blockEstimate`, payload)
       .then((res) => res.json())
