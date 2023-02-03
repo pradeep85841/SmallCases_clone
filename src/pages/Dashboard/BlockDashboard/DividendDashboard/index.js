@@ -17,8 +17,8 @@ import divident_logo from "../../../../Assets/divident_logo.png";
 import ItBlock from "../../../../components/Blocks/ItBlock";
 //import { store } from "../../../../App.js";
 //import getData from "../../../../components/Blocks/DividendBlock/index.js";
-//const BASE_URL = process.env.REACT_APP_API_URL;
-import { BASE_URL } from "../../../../Services/BackendURL.js";
+const BASE_URL = process.env.BASE_URL;
+//import { BASE_URL } from "../../../../Services/BackendURL.js";
 
 const mdTheme = createTheme();
 
