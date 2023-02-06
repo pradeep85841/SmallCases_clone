@@ -10,8 +10,8 @@
 }
 
 @media (max-width: 600px) {
-  .card-details, .statbox__title, .statbox__value {
-    flex-basis: 100%;
+  .card-details, .statbox__title, .statbox__value, .valuesBorder {
+    flex-basis: 80%;
   }
 }
 

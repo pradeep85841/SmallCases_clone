@@ -81,7 +81,7 @@ const DividendBlock = () => {
               {content.data && (
                 <ul>
                   {content.data.map((item, index) => (
-                    <div
+                    <div className="valuesBorder"
                       key={index}
                       style={{
                         display: "flex",
