@@ -4,7 +4,6 @@
 }
 
 .block1-it {
-  width: 100%;
   flex-basis: 100%;
   display: flex;
   flex-wrap: wrap;
