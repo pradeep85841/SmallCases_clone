@@ -68,6 +68,7 @@ const DividendBlock = () => {
                 padding: "0 5px",
                 margin: " 5px ",
                 marginLeft: "0",
+                flexbasis: "100%",
               }}
             >
               {/* <Button variant="contained">DIVIDENT</Button>*/}
