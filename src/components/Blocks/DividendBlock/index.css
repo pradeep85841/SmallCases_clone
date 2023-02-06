@@ -11,7 +11,7 @@
 
 @media (max-width: 600px) {
   .card-details, .statbox__title, .statbox__value, .valuesBorder {
-    flex-basis: 80%;
+    flex-basis: 50%;
   }
 }
 
