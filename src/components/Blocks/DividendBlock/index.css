@@ -10,7 +10,7 @@
 }
 
 @media (max-width: 600px) {
-  .block1-it {
+  .card-details {
     flex-basis: 100%;
   }
 }
@@ -26,12 +26,14 @@
   height: 100px;
 }
 .statbox__title {
+  flex-basis: 100%;
   color: #81878c;
   margin: 0;
   padding: 0;
 }
 
 .statbox__value {
+  flex-basis: 100%;
   margin: 5px 0;
 }
 

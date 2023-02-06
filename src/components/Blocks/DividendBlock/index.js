@@ -69,6 +69,8 @@ const DividendBlock = () => {
                 margin: " 5px ",
                 marginLeft: "0",
                 flexbasis: "100%",
+                display: "flex",
+                flexwrap: "wrap",
               }}
             >
               {/* <Button variant="contained">DIVIDENT</Button>*/}
@@ -83,6 +85,7 @@ const DividendBlock = () => {
                       key={index}
                       style={{
                         display: "flex",
+                        flexwrap: "wrap",
                         justifyContent: "space-between",
                       }}
                     >
