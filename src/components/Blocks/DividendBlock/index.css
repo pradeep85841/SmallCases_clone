@@ -3,7 +3,17 @@
 }
 .block1-it {
   width: 100%;
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
+
+@media (max-width: 600px) {
+  .block1-it {
+    flex-basis: 100%;
+  }
+}
+
 .card-details {
   display: flex;
   text-align: left;
