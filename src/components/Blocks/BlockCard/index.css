@@ -1,3 +1,14 @@
+.blockView{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .blockView {
+    flex-basis: 50%;
+  }
+}
+
 .block1-it,
 .block1-promote {
   text-align: left;
