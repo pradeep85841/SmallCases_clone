@@ -1,14 +1,9 @@
 .block1-it-container {
   padding: 20px;
-  flex-basis: 100%;
 }
-
 .block1-it {
-  flex-basis: 100%;
-  display: flex;
-
+  width: 100%;
 }
-
 .card-details {
   display: flex;
   text-align: left;
@@ -20,14 +15,12 @@
   height: 100px;
 }
 .statbox__title {
-  flex-basis: 100%;
   color: #81878c;
   margin: 0;
   padding: 0;
 }
 
 .statbox__value {
-  flex-basis: 100%;
   margin: 5px 0;
 }
 
