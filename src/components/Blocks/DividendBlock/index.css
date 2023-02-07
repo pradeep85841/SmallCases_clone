@@ -6,20 +6,9 @@
 .block1-it {
   flex-basis: 100%;
   display: flex;
-  flex-wrap: wrap;
+
 }
 
-@media (max-width: 600px) {
-  .card-details, .statbox__title, .statbox__value, .valuesBorder {
-    flex-basis: 50%;
-  }
-}
-
-
-.valuesBorder{
-  display: flex;
-  flex-wrap: wrap;
-}
 .card-details {
   display: flex;
   text-align: left;
