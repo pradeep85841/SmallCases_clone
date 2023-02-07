@@ -22,15 +22,14 @@ const BlockCard = () => {
             </div>
           </Paper>
         </Grid>
-        <div className="blockView">
+
         <Grid item xs={6}>
           <ItBlock />
         </Grid>
         <Grid item xs={6}>
           <DividendBlock />
         </Grid>
-        </div>
-        </Grid>
+      </Grid>
     </>
   );
 };
