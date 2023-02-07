@@ -67,10 +67,7 @@ const DividendBlock = () => {
               style={{
                 padding: "0 5px",
                 margin: " 5px ",
-                marginLeft: "0",
-                flexbasis: "100%",
-                display: "flex",
-                flexwrap: "wrap",
+                marginLeft: "0",                
               }}
             >
               {/* <Button variant="contained">DIVIDENT</Button>*/}
@@ -84,8 +81,6 @@ const DividendBlock = () => {
                     <div className="valuesBorder"
                       key={index}
                       style={{
-                        display: "flex",
-                        flexwrap: "wrap",
                         justifyContent: "space-between",
                       }}
                     >
