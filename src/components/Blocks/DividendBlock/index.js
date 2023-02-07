@@ -67,7 +67,7 @@ const DividendBlock = () => {
               style={{
                 padding: "0 5px",
                 margin: " 5px ",
-                marginLeft: "0",                
+                marginLeft: "0",
               }}
             >
               {/* <Button variant="contained">DIVIDENT</Button>*/}
@@ -78,9 +78,10 @@ const DividendBlock = () => {
               {content.data && (
                 <ul>
                   {content.data.map((item, index) => (
-                    <div className="valuesBorder"
+                    <div
                       key={index}
                       style={{
+                        display: "flex",
                         justifyContent: "space-between",
                       }}
                     >
