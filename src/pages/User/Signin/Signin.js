@@ -22,7 +22,7 @@ const theme = createTheme();
 
 export default function SignIn() {
   const { setToken } = useContext(store);
-  const initialValues = { email: "", password: "" };
+  const initialValues = { email: "user@gmail.com", password: "user@123" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
 
