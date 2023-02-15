@@ -49,7 +49,7 @@ class UserEstimation extends Component {
     const response = await fetch(`${BASE_URL}/estimate`);
     const body = await response.json();
     if (response.status !== 200) {
-      // throw Error(body.message);
+      throw Error(body.message);
     }
     return body;
   };
