@@ -25,7 +25,7 @@ Stockfolio is an investment-based application to help people in estimating their
 Please Note:
 
 1. We recommend using this app in Google Chrome
-2. Use the app on Laptop/desktop/Mobile.
+2. Use the app on Laptop/desktop.
 3. We are using JWT for authentication.
 4. We have enabled test credentials autofilled for some time.
 
