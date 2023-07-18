@@ -23,10 +23,10 @@ import { BASE_URL } from "../../Services/BackendURL";
 class UserEstimation extends Component {
   state = {
     response: "",
-    stock: "",
-    buyPrice: "",
-    date: "",
-    quantity: "",
+    stock: "TCS",
+    buyPrice: "3000",
+    date: "2022-10-10",
+    quantity: "1",
     cagr: "",
     analysis: "",
     volatality: "",
