@@ -37,11 +37,11 @@ const DividendBlock = () => {
   const navigate = useNavigate();
 
   const DividendDashboard = () => {
-    if (token) {
+  //  if (token) {
       navigate("/dividenddashboard");
-    } else {
-      navigate("/Signin");
-    }
+  //  } else {
+   //   navigate("/Signin");
+    //}
   };
 
   useEffect(() => {
