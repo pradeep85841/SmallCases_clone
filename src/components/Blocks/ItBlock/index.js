@@ -16,11 +16,11 @@ const ItBlock = () => {
   const navigate = useNavigate();
 
   const ItDashboard = () => {
-    if (token) {
-      navigate("/itdashboard");
-    } else {
-      navigate("/Signin");
-    }
+ //   if (token) {
+ //     navigate("/itdashboard");
+ //   } else {
+ //     navigate("/Signin");
+ //   }
   };
 
   function getData() {
